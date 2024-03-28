@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="java.util.List" />
+
+        <variable
+            name="currenciesList"
+            type=" List&lt;com.aj.currencycalculator.domain.model.Currency&gt;" />
+
+        <variable
+            name="lastUpdateDateTime"
+            type="String" />
+
+        <variable
+            name="viewModel"
+            type="com.aj.currencycalculator.ui.currencyconverter.CurrencyConverterViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.currencyconvert.CurrencyConverterFragment">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_swap"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="@dimen/_80sdp"
+                android:background="@color/light_green_1"
+                android:src="@drawable/ic_two_way"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInput_from"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="@string/from"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_swap"
+                app:layout_constraintEnd_toStartOf="@+id/btn_swap"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_swap">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_from_currency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColorHint="#616161"
+                    android:textSize="@dimen/_10sdp"
+                    app:loadCurrencies="@{currenciesList}"
+                    tools:ignore="LabelFor" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInput_To"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="@string/to"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_swap"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_swap"
+                app:layout_constraintTop_toTopOf="@+id/btn_swap">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_to_currency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColorHint="#616161"
+                    android:textSize="@dimen/_10sdp"
+                    app:loadCurrencies="@{currenciesList}"
+                    tools:ignore="LabelFor" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_from"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/et_border_style"
+                android:ems="10"
+                android:inputType="number"
+                android:maxLength="10"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/txtInput_from"
+                app:layout_constraintStart_toStartOf="@+id/txtInput_from"
+                app:layout_constraintTop_toBottomOf="@+id/txtInput_from"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_to"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/et_border_style"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="@drawable/et_state_color"
+                app:layout_constraintEnd_toEndOf="@+id/txtInput_To"
+                app:layout_constraintStart_toStartOf="@+id/txtInput_To"
+                app:layout_constraintTop_toTopOf="@+id/et_from"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_rates_update_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="@{String.format(@string/rates_last_updated, lastUpdateDateTime)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_details"
+                tools:text="@string/rates_last_updated" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:onClick="@{(view) -> viewModel.refreshCurrencyRates()}"
+                android:text="@string/refresh_currency_rates"
+                app:icon="@drawable/ic_arrow_down"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_rates_update_time" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_details"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/details"
+                app:elevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_from" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

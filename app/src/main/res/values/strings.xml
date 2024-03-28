@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CurrencyCalculator</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="rates_last_updated">Rates Last Updated: %s</string>
+    <string name="refresh_currency_rates">Refresh rates</string>
+    <string name="oh_snap">Oh Snap!</string>
+    <string name="error">An Error occurred</string>
+    <string name="details">Details</string>
+    <string name="_10_popular_conversions">10 Popular Conversions</string>
+    <string name="conversion_history">Conversion History</string>
+</resources>

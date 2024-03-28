@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".ui.currencydetail.CurrencyConversionDetailFragment">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_500sdp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_chart"
+                android:name="com.aj.currencycalculator.ui.historicalchart.HistoricalChartFragment"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_300sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout="@layout/fragment_historical_chart" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_historicaldata"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/guideline_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/recyclerview_popular_currencis" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_popular_currencis"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_9sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#F4E11D"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/_10_popular_conversions"
+                android:textColor="@color/box_text_color"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline_vertical"
+                app:layout_constraintTop_toTopOf="@+id/lbl_conversion_history" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lbl_conversion_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="#9CF44F"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/conversion_history"
+                android:textColor="@color/box_text_color"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_graph_lbl" />
+
+            <ProgressBar
+                android:id="@+id/progress_history"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_70sdp"
+                android:indeterminateTint="@color/purple_200"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+                app:layout_constraintStart_toStartOf="@+id/recyclerView_historicaldata"
+                app:layout_constraintTop_toTopOf="@+id/recyclerView_historicaldata"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_graph_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@color/color_grey_3"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/lbl_conversion_history"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_chart"
+                tools:text="Historical Data of Last X Days" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
